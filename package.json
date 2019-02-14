@@ -5,15 +5,16 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"nodemon server/server.js",
-    "start":"node server/server.js"
+    "dev": "nodemon server/server.js",
+    "start": "node server/server.js"
   },
   "engines": {
-    "node":"8.12.0"
+    "node": "8.12.0"
   },
   "author": "Vikram",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0"
   }
 }
