@@ -25,18 +25,38 @@ io.on('connection',(socket)=>{ //Individual Socket
     // });
 
     socket.emit('newMessage',{
-        from:'Server',
-        text:'See You',
-        createdAt: Date.now()
+        from:'Admin',
+        text:'Welcome to the Chat App',
+        createdAt: new Date().getTime()
+    });
+    
+    // socket.emit('newMessage',{
+    //     from:'Server',
+    //     text:'See You',
+    //     createdAt: Date.now()
+    // });
+
+    socket.broadcast.emit('newMessage',{
+        from:'Admin',
+        text:'New User joined',
+        createdAt: new Date().getTime()
     })
 
     socket.on('createMessage',(message)=>{
-        console.log('createMessage',message);
+        //console.log('createMessage',message);
+
         io.emit('newMessage',{
             from:message.from,
             text:message.text,
             createdAt: new Date().getTime()
         });
+        
+        //Send this to everbody but me.
+        // socket.broadcast.emit('newMessage',{
+        //     from:message.from,
+        //     text:message.text,
+        //     createdAt: new Date().getTime()
+        // });
     });
 
     socket.on('disconnect',()=>{

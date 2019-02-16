@@ -6,10 +6,10 @@ socket.on('connect',function(){
     //     email:'vikram@v.com',
     //     test: `I'm good. How are you?`
     // });
-    socket.emit('createMessage',{
-        from:'Vikram',
-        text:'Yup. This Works!'
-    });
+    // socket.emit('createMessage',{
+    //     from:'Vikram',
+    //     text:'Yup. This Works!'
+    // });
 });
 
 socket.on('disconnect',function(){
