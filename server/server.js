@@ -35,7 +35,7 @@ io.on('connection',(socket)=>{ //Individual Socket
         io.emit('newMessage',{
             from:message.from,
             text:message.text,
-            createdAt:new Date.getTime()
+            createdAt: new Date().getTime()
         });
     });
 
