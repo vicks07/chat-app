@@ -3,6 +3,8 @@ const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
 
+const {generateMessage} = require('./utils/message.js');
+
 const app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
@@ -24,11 +26,7 @@ io.on('connection',(socket)=>{ //Individual Socket
     //     createAt:123
     // });
 
-    socket.emit('newMessage',{
-        from:'Admin',
-        text:'Welcome to the Chat App',
-        createdAt: new Date().getTime()
-    });
+    socket.emit('newMessage',generateMessage('Admin','Welcome to the Chat App'));
     
     // socket.emit('newMessage',{
     //     from:'Server',
@@ -36,20 +34,12 @@ io.on('connection',(socket)=>{ //Individual Socket
     //     createdAt: Date.now()
     // });
 
-    socket.broadcast.emit('newMessage',{
-        from:'Admin',
-        text:'New User joined',
-        createdAt: new Date().getTime()
-    })
+    socket.broadcast.emit('newMessage',generateMessage('Admin','New User Joined'));
 
     socket.on('createMessage',(message)=>{
-        //console.log('createMessage',message);
+        console.log('createMessage',message);
 
-        io.emit('newMessage',{
-            from:message.from,
-            text:message.text,
-            createdAt: new Date().getTime()
-        });
+        io.emit('newMessage',generateMessage(message.from,message.text));
         
         //Send this to everbody but me.
         // socket.broadcast.emit('newMessage',{
