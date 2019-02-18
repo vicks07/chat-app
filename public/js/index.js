@@ -28,5 +28,25 @@ socket.on('disconnect',function(){
 
 socket.on('newMessage',function(message){
     console.log('newMessage',message);
+    let li = jQuery('<li></li>');
+    li.text(`${message.from}:${message.text}`);
+
+    jQuery('#messages').append(li);
 });
 
+// socket.emit('createMessage',{
+//     from:'Frank',
+//     text:'Hi'
+// },function(data){
+//     console.log(data);
+// });
+
+jQuery('#message-form').on('submit',function(e){
+    e.preventDefault(); //Prevents the default event of form of page refresh the page and modifying the url.
+    socket.emit('createMessage',{
+        from:'Vikram',
+        text: jQuery('[name=message]').val()
+    },function(){
+        //console.log(data);
+    });
+});
