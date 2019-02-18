@@ -9,8 +9,8 @@ const app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
 const publicPath = path.join(__dirname,'../public');
-console.log(__dirname+'/../public');
-console.log(publicPath);
+// console.log(__dirname+'/../public');
+// console.log(publicPath);
 //console.log(config);
 const port = process.env.PORT || 5000;
 
@@ -37,10 +37,10 @@ io.on('connection',(socket)=>{ //Individual Socket
     socket.broadcast.emit('newMessage',generateMessage('Admin','New User Joined'));
 
     socket.on('createMessage',(message,callback)=>{
-        console.log('createMessage',message);
+        //console.log('createMessage',message);
 
         io.emit('newMessage',generateMessage(message.from,message.text));
-        callback('This is from the server');
+        callback();
         
         //Send this to everbody but me.
         // socket.broadcast.emit('newMessage',{

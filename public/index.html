@@ -2,21 +2,30 @@
 <html> 
     <head>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="css/styles.css">
     </head>
-    <body>
-        <p> Welcome to the Chat App </p>
-        <p> Developed By- Vikram </p>
+    <body class="chat">]
+        <div class="chat__sidebar"> 
+            <h3> People </h3>
+            <div id="users">
 
-        <ul id="messages">
+            </div>
+        </div>
+        <div class="chat__main">
+                <ul id="messages" class="chat__messages">
 
-        </ul>
-
-
-        <form id="message-form">
-            <input name="message" type="text" placeholder="Enter Your Message"/>
-            <button>Send</button>
-        </form>
-        <button id="send-location">Send Location</button>
+                    </ul>
+            
+                    <div class="chat__footer">
+                            <form id="message-form">
+                                    <input name="message" type="text" placeholder="Enter Your Message" autofocus autocomplete="off"/>
+                                    <button>Send</button>
+                                </form>
+                                <button id="send-location">Send Location</button>
+                    </div>
+        </div>
+        
+        
 
         <script src="/socket.io/socket.io.js"></script>
         <script src="/js/libs/jquery-3.3.1.min.js"></script>
