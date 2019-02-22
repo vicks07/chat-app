@@ -78,7 +78,7 @@ let messageTextBox = jQuery('[name=message]');
 jQuery('#message-form').on('submit',function(e){
     e.preventDefault(); //Prevents the default event of form of page refresh the page and modifying the url.
     socket.emit('createMessage',{
-        from:'User',
+        from:getUrlParam(window.location.href,'name'),
         text: messageTextBox.val()
     },function(){
         messageTextBox.val('');
@@ -111,7 +111,7 @@ socket.on('newLocationMessage',function(message){
     let template = jQuery('#location-message-template').html();
     let html = Mustache.render(template,{
         url:message.url,
-        from: message.from,
+        from: getUrlParam(window.location.href,'name'), //message.from,
         createdAt:formattedTime
     });
 
@@ -124,3 +124,8 @@ socket.on('newLocationMessage',function(message){
     // li.append(a);
     // jQuery('#messages').append(li); 
 });
+
+function getUrlParam(url_string, key) {
+    var url = new URL(url_string);
+    return url.searchParams.get(key);
+}
