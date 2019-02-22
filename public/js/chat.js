@@ -21,6 +21,16 @@ let socket = io();
  }
 
 socket.on('connect',function(){
+
+    let params = jQuery.deparam(window.location.search);
+    socket.emit('join',params,function(err){
+        if(err){
+            alert(err);
+            window.location.href = '/';
+        }else{
+            console.log('No Error');
+        }
+    });
     console.log('Connected to the server');
     // socket.emit('createEmail',{
     //     email:'vikram@v.com',
