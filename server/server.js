@@ -27,7 +27,7 @@ io.on('connection',(socket)=>{ //Individual Socket
     //     createAt:123
     // });
 
-    socket.emit('newMessage',generateMessage('Admin','Welcome to the Chat App'));
+   
     
     // socket.emit('newMessage',{
     //     from:'Server',
@@ -35,12 +35,19 @@ io.on('connection',(socket)=>{ //Individual Socket
     //     createdAt: Date.now()
     // });
 
-    socket.broadcast.emit('newMessage',generateMessage('Admin','New User Joined'));
 
     socket.on('join',(params,callback)=>{
         if(!isRealString(params.name) || !isRealString(params.room)){
             callback('Name and Room name are required');
         }
+        socket.join(params.room);
+        //socket.leave(params.room);
+
+
+        //io.emit -> io.to(room Name).emit();
+        //socket.broadcast.emit -> socket.broadcast.to(room name).emit()
+        socket.emit('newMessage',generateMessage('Admin','Welcome to the Chat App'));
+        socket.broadcast.to(params.room).emit('newMessage',generateMessage('Admin',`${params.name} has joined`));
         callback();
     });
     
