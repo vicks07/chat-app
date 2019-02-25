@@ -46,6 +46,10 @@ socket.on('disconnect',function(){
     console.log('Disconnected from server');
 });  
 
+
+socket.on('updateUserList',function(users){
+    console.log('Users List',users);
+})
 //Custom Events without data
 // socket.on('newEmail',function(){
 //     console.log('New Email');
