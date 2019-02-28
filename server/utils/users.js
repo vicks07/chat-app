@@ -16,13 +16,13 @@ class Users{
         //Return user that was removed
         let user = this.getUser(id);
         if(user){
-            let userList = this.users.filter(user=> user.id !==id);
+            this.users = this.users.filter(user=> user.id !==id);
         }
         return user;
     }
 
     getUser(id){
-        return this.users.filter(user=> user.id===id);
+        return this.users.filter(user=> user.id===id)[0];
        // return user;
     }
     
