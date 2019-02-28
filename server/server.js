@@ -75,7 +75,10 @@ io.on('connection',(socket)=>{ //Individual Socket
 
     socket.on('disconnect',()=>{
         let user = users.removeUser(socket.id);
+        //console.log(`${user} was disconnected`);
+
         if (user){
+            //console.log('User Removed',user);
             io.to(user.room).emit('updateUserList',users.getUserList(user.room));
             io.to(user.room).emit('newMessage',generateMessage('Admin',`${user.name} has left`));
         }

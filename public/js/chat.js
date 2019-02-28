@@ -48,6 +48,14 @@ socket.on('disconnect',function(){
 
 
 socket.on('updateUserList',function(users){
+    let ol = jQuery('<ul></ul>');
+
+    users.forEach(function(user){
+        ol.append(jQuery('<li></li>').text(user)); 
+    });
+
+    jQuery('#users').html(ol);
+    
     console.log('Users List',users);
 })
 //Custom Events without data
