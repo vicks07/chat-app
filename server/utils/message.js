@@ -9,6 +9,7 @@ let generateMessage = (from,text)=>{
 }
 
 let generateLocationMessage = (from,latitude,longitude)=>{
+    console.log(from);
     return {
         from,
         url:`https://www.google.com/maps?q=${latitude},${longitude}`,
