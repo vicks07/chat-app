@@ -1,7 +1,5 @@
-jQuery(document).ready(function () {
-
-    jQuery('#signup').click(function(e){
-        e.preventDefault();
-        
-    });
+jQuery(document).ready(function () {                     
+        jQuery('#login').click(function(){            
+              $('#LoginModal').modal('show');
+        });  
 });

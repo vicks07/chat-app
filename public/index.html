@@ -10,29 +10,64 @@
     <body class="centered-form">
         <div class="centered-form__form">
                 <div class="btn-group" style="width:100%">
-                    <button id="login" style="width:50%">Login</button>                    
-                    <button id="signup"style="width:50%">Sign Up</button>                                          
+                    <button type="button" style="width:40%" id="login" class="btn btn-primary">Login</button>
+                    <!-- <button id="login" style="width:40%">Login</button>
+                                         -->
+                    <button type="button" style="width:60%" id="signup" class="btn btn-primary">Sign Up</button>
+                    <!-- <button id="signup"style="width:40%">Sign Up</button>                                           -->
                 </div>                     
             <form action="/chat.html">
                     <div class="form-field"> 
                         <h3> Join Chat </h3>
                     </div>
                     <div class="form-field">
-                        <label>Display Name </label> 
-                        <input type="text" name="name" autofocus autocomplete="off"> 
+                        <label >Display Name </label> 
+                        <input type="text" class="form-control" name="name" autofocus autocomplete="off"> 
                     </div>
                     <div class="form-field"> 
                             <label>Room Name</label> 
-                            <input type="text" name="room" autocomplete="off"> 
+                            <input type="text" class="form-control" name="room" autocomplete="off"> 
                     </div>
                     <div class="form-field"> 
                         <button type="submit"> Join </button>                        
                     </div>                    
             </form>
             
-        </div>       
+        </div>  
+        <div class="modal fade" id="LoginModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4> Login </h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>                                                                                       
+                        </div> 
+                        <div class="modal-body">
+                                <form action="/">
+                                    <div class="form-group">
+                                      <label for="email">Email address:</label>
+                                      <input type="email" class="form-control" id="email">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="pwd">Password:</label>
+                                      <input type="password" class="form-control" id="pwd">
+                                    </div>
+                                    <!-- <div class="checkbox">
+                                      <label><input type="checkbox"> Remember me</label>
+                                    </div> -->
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                  </form
+                        </div>   
+                        
+                    </div>  
+                </div>                                          
+            </div>     
+        </div>                                               
         <script src="/js/libs/jquery-3.3.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
         <script type="text/javascript" src="js/login.js"></script>
+        <!-- <script>
+               
+                </script>         -->
     </body>
    
 </html>
