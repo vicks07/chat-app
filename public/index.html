@@ -5,9 +5,14 @@
         <title>Join | ChatApp </title>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body class="centered-form">
         <div class="centered-form__form">
+                <div class="btn-group" style="width:100%">
+                    <button id="login" style="width:50%">Login</button>                    
+                    <button id="signup"style="width:50%">Sign Up</button>                                          
+                </div>                     
             <form action="/chat.html">
                     <div class="form-field"> 
                         <h3> Join Chat </h3>
@@ -22,12 +27,12 @@
                     </div>
                     <div class="form-field"> 
                         <button type="submit"> Join </button>                        
-                    </div> 
-                    <div class="form-field"> 
-                         <a class="btn success" href="login.html"> Login</a>
-                     </div> 
+                    </div>                    
             </form>
             
-        </div>
+        </div>       
+        <script src="/js/libs/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
     </body>
+   
 </html>
