@@ -3,6 +3,7 @@ const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
 const {MongoClient,ObjectId} = require('mongodb');
+const bodyParser = require('body-parser');
 
 const {generateMessage,generateLocationMessage} = require('./utils/message.js');
 const {isRealString} = require('./utils/validation.js');
@@ -21,7 +22,7 @@ const publicPath = path.join(__dirname,'../public');
 //console.log(config);
 const port = process.env.PORT;
 //console.log(process.env);
-
+app.use(bodyParser.json());
 app.use('/user',user);
 
 MongoClient.connect(process.env.MONGODB_URI,{useNewUrlParser:true},(err,client)=>{
