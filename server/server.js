@@ -2,10 +2,14 @@ const path = require('path');
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
+const {MongoClient,ObjectId} = require('mongodb');
 
 const {generateMessage,generateLocationMessage} = require('./utils/message.js');
 const {isRealString} = require('./utils/validation.js');
 const {Users} = require('./utils/users.js');
+const config = require('./config/config.js');
+
+const user = require('../routes/user.js');
 
 const app = express();
 let server = http.createServer(app);
@@ -15,7 +19,22 @@ const publicPath = path.join(__dirname,'../public');
 // console.log(__dirname+'/../public');
 // console.log(publicPath);
 //console.log(config);
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
+//console.log(process.env);
+
+app.use('/user',user);
+
+MongoClient.connect(process.env.MONGODB_URI,{useNewUrlParser:true},(err,client)=>{
+    if(err){
+        //console.log('Could Not connect to the DB',err);
+        //console.log(StandardMessages.ErrorMessage(err));
+    }
+    else{
+        console.log('Connected to the DB');
+
+    }
+});
+
 
 io.on('connection',(socket)=>{ //Individual Socket
     console.log('New User Connected');
@@ -36,8 +55,7 @@ io.on('connection',(socket)=>{ //Individual Socket
     //     text:'See You',
     //     createdAt: Date.now()
     // });
-
-
+    
     socket.on('join',(params,callback)=>{
         if(!isRealString(params.name) || !isRealString(params.room)){
             return callback('Name and Room name are required');
