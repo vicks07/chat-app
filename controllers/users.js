@@ -29,6 +29,36 @@ const GenerateSalt = ()=>{
 }
 
 
+const Login = (req,res)=>{
+    user.GetSaltKey({email:req.body.email}).then((result)=>{
+        //console.log(result);
+        if(result.length === 0)
+        {
+            return res.json({
+                data:result,
+                status:'INVALID'
+            });
+        }
+        return user.Login({email:req.body.email,password:req.body.password,salt:result[0].salt});
+    }).then((result)=>{
+        if(result.length !== 0){
+            return res.json({
+                data:result,
+                status:'OK'
+            });
+        }
+        else{
+            return res.json({
+                data:result,
+                status:'INVALID'
+            });
+        }
+       
+    }).catch(err=> res.end(err));
+}
+
+
 module.exports ={
-    RegisterUser
+    RegisterUser,
+    Login
 }

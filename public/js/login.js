@@ -9,11 +9,24 @@ jQuery(document).ready(function () {
             let pwd = $("#pwd").val();
             let userDetails = {
                 email:email,
-                pwd:pwd
+                password:pwd
             }
-            $.post(url + '/users/create', userDetails , function(result){
-                //$("span").html(result);
-              });
+            $(".loadergap").fadeIn(100, 'linear');
+            ajaxCall('POST','/user/login',userDetails).then(function(result){
+                console.log(result);
+                if(result.status === 'OK'){
+                    console.log('Success');
+                    $(".loadergap").fadeOut(100, 'linear');
+                    $("#login-validate").html("<span class='alert alert-success'>Success</span>");
+                }
+                else{
+                    $(".loadergap").fadeOut(100, 'linear');
+                    $("#login-validate").html("<span class='alert alert-danger'>Invalid Username/Password</span>");
+                }
+            });
+            // $.post(url + '/users/login', userDetails , function(result){
+            //     //$("span").html(result);
+            //   });
             console.log(email,pwd);
         });
 
@@ -38,7 +51,7 @@ jQuery(document).ready(function () {
 
         ajaxCall('POST','/user/create',userDetails).then(function(result){
             console.log(result);
-        })
+        });
         //   $.ajax({
         //     type: 'POST',
         //     contentType: "application/json; charset=utf-8",
@@ -47,10 +60,10 @@ jQuery(document).ready(function () {
         //     async: async,
         //     data: userDetails
         //   });
-        console.log(email,pwd);
+        //console.log(email,pwd);
     });
     function ajaxCall(method,url,data){
-        //console.log('Here');
+        //console.log(url);
         return  jQuery.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
