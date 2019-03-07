@@ -18,6 +18,7 @@ jQuery(document).ready(function () {
                     console.log('Success');
                     $(".loadergap").fadeOut(100, 'linear');
                     $("#login-validate").html("<span class='alert alert-success'>Success</span>");
+                    window.location = "../userdashboard.html";
                 }
                 else{
                     $(".loadergap").fadeOut(100, 'linear');
@@ -41,16 +42,26 @@ jQuery(document).ready(function () {
         let userDetails = {
             name:name,
             email:email,
-            pwd:pwd
+            password:pwd
         }
         console.log(userDetails);
         // $.post(url + '/users/create', userDetails , function(result){
         //     //$("span").html(result);
         //     console.log(result);
         //   });
-
+        $(".loadergap").fadeIn(100, 'linear');
         ajaxCall('POST','/user/create',userDetails).then(function(result){
-            console.log(result);
+            //console.log(result);
+            if(result.n >= 1 && result.ok >= 1){
+                console.log('Success');
+                $(".loadergap").fadeOut(100, 'linear');
+                $("#signup-validate").html("<span class='alert alert-success'>Resgistration Successful</span>");
+                
+            }
+            else{
+                $(".loadergap").fadeOut(100, 'linear');
+                $("#login-validate").html("<span class='alert alert-danger'>Oops! Something went wrong</span>");
+            }
         });
         //   $.ajax({
         //     type: 'POST',

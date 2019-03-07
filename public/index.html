@@ -88,7 +88,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4> Login </h4>
+                            <h4> Sign Up </h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>                                                                                       
                         </div> 
                         <div class="modal-body">
@@ -108,8 +108,11 @@
                                     <!-- <div class="checkbox">
                                       <label><input type="checkbox"> Remember me</label>
                                     </div> -->
-                                    <button type="submit" id="signUpSubmit" class="btn btn-primary">Submit</button>
-                                  <!-- </form -->
+                                    <div class="form-group">
+                                        <button type="submit" id="signUpSubmit" class="btn btn-primary">Submit</button>
+                                        <div style="display: inline-block" id="signup-validate"></div>
+                                    </div> 
+                                    <!-- </form -->
                         </div>   
                         
                     </div>  
@@ -128,6 +131,13 @@
                 $("#email, #pwd").keyup(function (event) {
                   if (event.keyCode === 13) {
                     $("#loginSubmit").trigger("click");
+                  }
+                });                
+              </script>
+              <script>
+                  $("#signup-name, #signup-email","#signup-pwd").keyup(function (event) {
+                  if (event.keyCode === 13) {
+                    $("#signUpSubmit").trigger("click");
                   }
                 });
               </script>
