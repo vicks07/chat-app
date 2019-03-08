@@ -9,5 +9,6 @@ router.post('/login',user.Login);
 router.patch('/add',user.AddContact);
 router.patch('/request',user.SendRequest);
 router.get('/display/request/:userId',user.DisplayRequest);
+router.get('/display/friends/:userId',user.DisplayFriend);
 
 module.exports = router;

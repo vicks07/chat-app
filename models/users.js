@@ -74,7 +74,7 @@ const UserDetails = (userDetails)=>{
 }
 
 const AddToContact = (userDetails)=>{
-    console.log('userDetails',userDetails);
+    //console.log('userDetails',userDetails);
     return new Promise((resolve,reject)=>{
         MongoClient.connect(mongoUri,{useNewUrlParser:true},(err,client)=>{
             if(err){
@@ -122,6 +122,42 @@ const DisplayRequest = (userDetails)=>{
         });
     });
 }
+
+const UpdateRequest =(userDetails)=>{
+    return new Promise((resolve,reject)=>{
+        MongoClient.connect(mongoUri,{useNewUrlParser:true},(err,client)=>{
+            if(err){
+                reject('Error');
+            }
+            let db = client.db(dbName);
+            db.collection('users').updateOne({_id:ObjectId(userDetails.userId)},{$pull:{requests:userDetails.friend}}).then((result)=>{
+                //console.log('user result',result);
+                resolve(result);
+            }).catch((err)=>{
+                reject('Error');
+            });
+        });
+    });
+}
+
+const DisplayFriend = (userDetails)=>{
+    //console.log(userDetails);
+    return new Promise((resolve,reject)=>{
+        MongoClient.connect(mongoUri,{useNewUrlParser:true},(err,client)=>{
+            if(err){
+                reject('Error');
+            }
+            let db = client.db(dbName);
+            db.collection('users').find({_id:ObjectId(userDetails.userId)}).project({friends:1}).toArray().then((result)=>{
+                //console.log('user result',result);
+                resolve(result);
+            }).catch((err)=>{
+                reject('Error');
+            });
+        });
+    });
+}
+
 module.exports = {
     RegisterUser,
     GetSaltKey,
@@ -129,5 +165,7 @@ module.exports = {
     UserDetails,
     AddToContact,
     SendRequest,
-    DisplayRequest
+    DisplayRequest,
+    UpdateRequest,
+    DisplayFriend
 }

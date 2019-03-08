@@ -18,6 +18,8 @@ jQuery(document).ready(function () {
                     console.log('Success');
                     $(".loadergap").fadeOut(100, 'linear');
                     $("#login-validate").html("<span class='alert alert-success'>Success</span>");
+                    sessionStorage.setItem("userId", result.data[0]._id);
+                    sessionStorage.setItem("userName", result.data[0].name);
                     window.location = "../userdashboard.html";
                 }
                 else{

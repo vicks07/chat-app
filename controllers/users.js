@@ -93,20 +93,28 @@ const UserDetails = (req,res)=>{
 }
 
 const AddContact = (req,res)=>{
+    //console.log('Yo',req.body);
     const addUser = user.AddToContact({userId:req.body.userId,friend:req.body.friend});
     const addUser1 = user.AddToContact({userId:req.body.friend,friend:req.body.userId});
 
     Promise.all([addUser,addUser1]).then((result)=>{
-        return res.json({
-            data:result,
-            status:'ERROR'
-        });
+        user.UpdateRequest({userId:req.body.userId,friend:req.body.friend}).then((result)=>{
+            return res.json({
+                data:result,
+                status:'OK'
+            });
+        }).catch((err)=>{
+            return res.json({
+                data:result,
+                status:'ERROR'
+            });
+        });    
     }).catch((err)=>{
         return res.json({
             data:result,
             status:'ERROR'
         });
-    })
+    });
 }
 
 const SendRequest = (req,res)=>{
@@ -138,7 +146,36 @@ const DisplayRequest = (req,res)=>{
                 //console.log('doc',doc);
                 userList.push(ObjectId(doc));
             })
-            console.log('userlist',userList);
+            //console.log('userlist',userList);
+            return user.UserDetails({userId:userList})
+        }
+        return res.json({
+            data:result,
+            status:'EMPTY'
+        });
+    }).then((result)=>{
+        return res.json({
+            data:result,
+            status:'OK'
+        });
+    }).catch((err)=>{
+        return res.json({
+            data:err,
+            status:'INVALID'
+        });
+    })
+}
+
+const DisplayFriend = (req,res)=>{
+    user.DisplayFriend({userId:req.params.userId}).then((result)=>{
+        if(result.length > 0){
+            let userList = [];
+            //console.log( 'Request',result[0].requests);
+            result[0].friends.forEach((doc)=>{
+                //console.log('doc',doc);
+                userList.push(ObjectId(doc));
+            })
+            //console.log('userlist',userList);
             return user.UserDetails({userId:userList})
         }
         return res.json({
@@ -159,10 +196,16 @@ const DisplayRequest = (req,res)=>{
 }
 
 
+const UpdateRequests = (req,res)=>{
+
+}
+
+
 module.exports ={
     RegisterUser,
     Login,
     AddContact,
     SendRequest,
-    DisplayRequest
+    DisplayRequest,
+    DisplayFriend
 }

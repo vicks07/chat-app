@@ -3,17 +3,73 @@
     <head>
         <meta charset="utf-8">
         <title> Chat | ChatApp </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/styles.css">
+        <style>
+                .loadergap {
+                        display: none;
+                        position: absolute;
+                        top: 0%;
+                        left: 0%;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 9999;
+                        filter: alpha(opacity=70);
+                        background: url(/images/loading.gif) center no-repeat rgba(169, 169, 169, 0.7);
+                        background-size: 125px;
+                    }
+              </style>
     </head>
-    <body class="chat">]
-        <div class="chat__sidebar"> 
-            <h3> People </h3>
-            <div id="users">
+    <body class="chat">
+            <div class="loadergap"></div>
+        <div class="sidebar"> 
+            <div class="side_bar_header">
+                    <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                            <button type="submit" id="friendlist" class="nav-link active btn btn-primary"> Friends </button>                        
+                              <!-- <a class="nav-link active" href="#">Friends</a> -->
+                            </li>
+                            <li class="nav-item">
+                            <button type="submit" id="pendingrequest" class="nav-link active btn btn-primary"> Pending Requests </button>                        
 
+                              <!-- <a class="nav-link" href="#">Pending Requests</a> -->
+                            </li>
+                          </ul>
+            </div>
+            <div class="chat__sidebar">
+                <h3> People </h3>
+                <div id="users-friends">
+
+                </div>
             </div>
         </div>
+        <div class="modal fade" id="RequestModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+            <div class="modal-header">
+                <h4> New Request </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>                                                                                       
+            </div> 
+            <div class="modal-body">                    
+                    <!-- <form action="/"> -->
+                        <div class="form-group">
+                          <label for="email">Accept Request?</label>                         
+                        </div>                        
+                        <div class="form-group">
+                            <button type="submit" id="requestSubmit" class="btn btn-success">Accept</button>
+                            <button type="submit" id="requestReject" class="btn btn-danger">Submit</button>
+                            <div style="display: inline-block" id="request-validate"></div>
+                        </div>
+                    </div> 
+                </div> 
+            </div>  
+                        <!-- </form -->
+            </div>   
+
+
     </body>
-    <script src="/js/libs/jquery-3.3.1.min.js"></script>
+    <script src="/js/libs/jquery-3.3.1.min.js"></script>    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/dashboard.js"></script>
 </html>

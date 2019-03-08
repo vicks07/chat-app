@@ -113,16 +113,24 @@
     text-align: left;
   }
   
-  .chat__sidebar ul {
+  /* .chat__sidebar ul {
     list-style-type: none;
-  }
+  } */
   
   .chat__sidebar li {
     background: #e6eaee;
-    border: 1px solid #e1e1e1;
+    /* border: 1px solid #e1e1e1;
     border-radius: 5px;
     padding: 10px;
-    margin: 10px;
+    margin: 10px; */
+  }
+
+  /* .side_bar_header {
+  } */
+
+  .sidebar{
+    width:40%;
+
   }
   
   .chat__main {
