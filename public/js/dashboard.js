@@ -7,14 +7,40 @@ $(document).ready(function () {
         GetPendingRequests();
     });
 
+    /*<ul class="collection with-header">
+        <li class="collection-header"><h4>First Names</h4></li>
+        <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+        <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+        <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+        <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+      </ul> */
+    $('#testbtn').click(function(e){
+        alert('Hey');
+    })
     $('#friendlist').click(function(e){
         ajaxCall('GET',`/user/display/friends/${userDetails.userId}`,'').then(function(result){
             console.log(result);
     
-            let ol = jQuery('<ul class ="list-group list-group-flush"></ul>');
+            let ol = jQuery('<ul class="collection with-header"></ul>');
+
+            ol.append(jQuery('<li style="float: none" class="collection-header black-text"><h6>Contacts</h6></li>'))
     
             result.data.forEach(function(user){
-                ol.append(jQuery('<li class="list-group-item"></li>').text(user.name)); 
+                let li = jQuery('<li style="float: none" class="collection-item black-text">');
+                let div = jQuery('<div></div>').html(user.name);
+                let a = jQuery('<a href="#!" class="secondary-content"></a>');
+                //let i = jQuery('<a href="#!" class="secondary-content"></a>');
+                a.append('<i class="material-icons">send</i>').click(function(e){
+                    //alert('Hey');
+                    alert($(this).attr('data-userId'));
+                }).attr({'data-userId':user._id})
+                div.append(a);
+                li.append(div);
+                //ol.append(jQuery('<li style="float: none" class="collection-item black-text">Item1</li>').text(user.name)); 
+                ol.append(li);
+                
+                //ol.append(jQuery('<li style="float: none" class="collection-item black-text"><div><a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>').text(user.name));
+
             });            
         
             jQuery('#users-friends').html(ol);
@@ -59,18 +85,38 @@ $(document).ready(function () {
         $('#pendingRequestList').empty();
         ajaxCall('GET',`/user/display/request/${userDetails.userId}`,'').then(function(result){
             console.log(result);
-    
-            let ol = jQuery('<ul id="pendingRequestList" class ="list-group list-group-flush"></ul>');
+            let ol = jQuery('<ul class="collection with-header"></ul>');
+
+            ol.append(jQuery('<li style="float: none" class="collection-header black-text"><h6>Requests</h6></li>'))
     
             result.data.forEach(function(user){
-                ol.append(jQuery(`<li class="list-group-item" value=${user._id}></li>`).text(user.name)); 
-            });
-            $(".loadergap").fadeOut(100, 'linear');
+                let li = jQuery('<li style="float: none" class="collection-item black-text">');
+                let div = jQuery('<div></div>').html(user.name);
+                let a = jQuery('<a href="#!" class="secondary-content"></a>');
+                //let i = jQuery('<a href="#!" class="secondary-content"></a>');
+                a.append('<i class="material-icons">add</i>').click(function(e){
+                    alert('Hey');
+                    $('#RequestModal').modal('show');               
+                    $('#RequestModal').attr({'data-userId':user._id});
+                console.log("Here",$('#RequestModal').attr('data-userId')); 
+                }).attr({'data-userId':user._id})
+                div.append(a);
+                li.append(div);
+                //ol.append(jQuery('<li style="float: none" class="collection-item black-text">Item1</li>').text(user.name)); 
+                ol.append(li);
+                
+                //ol.append(jQuery('<li style="float: none" class="collection-item black-text"><div><a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>').text(user.name));
+
+            });            
+        
             jQuery('#users-friends').html(ol);
-            ol.find('li').bind('click',userClick.bind(null,'request'));
+            $(".loadergap").fadeOut(100, 'linear');
+
+            //ol.find('li').bind('click',userClick.bind(null,'Yo'));
         });
     }
     function userClick(from,e){
+        console.log('here');
         let id = e.target;
         //console.log(e,from);
         let a = $(id).attr("value");        

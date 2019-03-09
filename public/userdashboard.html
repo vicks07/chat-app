@@ -1,75 +1,206 @@
 <!DOCTYPE html>
-<html> 
-    <head>
-        <meta charset="utf-8">
-        <title> Chat | ChatApp </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">        
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/styles.css">
-        <style>
-                .loadergap {
-                        display: none;
-                        position: absolute;
-                        top: 0%;
-                        left: 0%;
-                        width: 100%;
-                        height: 100%;
-                        z-index: 9999;
-                        filter: alpha(opacity=70);
-                        background: url(/images/loading.gif) center no-repeat rgba(169, 169, 169, 0.7);
-                        background-size: 125px;
-                    }
-              </style>
-    </head>
-    <body class="chat">
-            <div class="loadergap"></div>
-        <div class="sidebar"> 
-            <div class="side_bar_header">
-                    <ul class="nav nav-tabs">
-                            <li class="nav-item">
-                            <button type="submit" id="friendlist" class="nav-link active btn btn-primary"> Friends </button>                        
-                              <!-- <a class="nav-link active" href="#">Friends</a> -->
-                            </li>
-                            <li class="nav-item">
-                            <button type="submit" id="pendingrequest" class="nav-link active btn btn-primary"> Pending Requests </button>                        
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Chat | ChatApp</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style>
+      .loadergap {
+        display: none;
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        filter: alpha(opacity=70);
+        background: url(/images/loading.gif) center no-repeat
+          rgba(169, 169, 169, 0.7);
+        background-size: 125px;
+      }
+    </style>
+  </head>
+  <body class="chat">
+    <div class="loadergap"></div>
+    <nav>
+      <div class="nav-wrapper blue">
+        <a href="" class="brand-logo">Logo</a>
+        <!-- <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a> -->
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <button id="friendlist" class="btn waves-effect waves-light">
+              Contacts
+            </button>
+          </li>
+          <!--<a href="#"> Contacts</a>-->
+          <li>
+            <button id="pendingrequest" class="btn waves-effect waves-light">
+              Requests
+            </button>
+          </li>
+          <!--<a href="#"> Requests</a>-->
+        </ul>
+        <!-- <ul id="nav-mobile" class="side-nav">
+                            <li> <a href="#"> Home</a>  </li>
+                            <li> <a href="#"> About</a>  </li>
+                            <li> <a href="#"> Contact</a>  </li>                           
+                        </ul> -->
+      </div>
 
-                              <!-- <a class="nav-link" href="#">Pending Requests</a> -->
-                            </li>
-                          </ul>
-            </div>
-            <div class="chat__sidebar">
-                <h3> People </h3>
-                <div id="users-friends">
+      <div id="users-friends">
+        <!-- <ul class="collection with-header">
+                                    <li style="float: none" class="collection-header black-text"><h4>First Names</h4></li>
+                                    <li style="float: none" class="collection-item black-text"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                                    <li style="float: none" class="collection-item black-text"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                                    <li style="float: none" class="collection-item black-text"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                                    <li style="float: none" class="collection-item black-text"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                                  </ul> -->
+        <!-- <ul class="collection">
+                                    <li style="float: none" class="collection-item black-text">Item1</li>
+                                    <li style="float: none"  class="collection-item black-text">Item2</li>
+                                    <li style="float: none"  class="collection-item black-text">Item3</li>
+                                </ul> -->
+      </div>
+    </nav>
+    <div class="container">
+      <h1>COLORS</h1>
+      <div class="red white-text">DIV WITH COLOR</div>
+      <div class="blue white-text darken-2">DIV WITH COLOR</div>
+      <div class="deep-purple blue-text lighten-3">DIV WITH COLOR</div>
 
-                </div>
+      <h1>Buttons</h1>
+      <button class="btn">Read More</button>
+      <button class="btn waves-effect waves-light">Read More</button>
+      <button class="btn btn-large red lighten-3">Read More</button>
+      <button class="btn disabled">Read More</button>
+      <button class="btn btn-large ">
+        <i class="material-icons left">cloud</i> Read More
+      </button>
+
+      <!-- Floating Button-->
+      <a href="#" class="btn-floating red btn-large"
+        ><i class="large material-icons">add</i></a
+      >
+
+      <!--Fixed action button-->
+      <div class="fixed-action-btn">
+        <a href="#" class="btn-floating red btn-large"
+          ><i class="large material-icons">mode_edit</i></a
+        >
+        <ul>
+          <li>
+            <a href="#" class="btn-floating blue btn-large"
+              ><i class="large material-icons">add</i></a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- Flat Button -->
+      <a href="#" class="waves-effect waves-teal btn-flat">Button</a>
+
+      <h1>Helpers</h1>
+
+      <!-- Alignment Classes-->
+
+      <div>
+        <h5 class="left-align">This aligns to the left</h5>
+        <h5 class="right-align">This aligns to the right</h5>
+        <h5 class="center-align">This aligns to the Center</h5>
+      </div>
+
+      <!-- Quick Floats-->
+      <div class="left">Left Float</div>
+      <div class="right">Right Float</div>
+
+      <div class="clear-fix"></div>
+
+      <!-- Hide ZContent-->
+
+      <div class="hide">Hidden for all devices</div>
+      <div class="hide-on-small-only">Hidden for all small devices</div>
+
+      <h4 class="truncate">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Orci sagittis eu
+        volutpat odio facilisis mauris sit amet. Quis auctor elit sed vulputate
+        mi sit. Ac tincidunt vitae semper quis.
+      </h4>
+
+      <div class="red white-text hoverable">Hoverable Content</div>
+      <div class="blue white-text _pulse">Pulse Content</div>
+
+      <!--Shadows-->
+      <p class="z-depth-1">z-depth-1</p>
+
+      <p class="flow-text">
+        Lorem Ipsum, asdfkuh aiasdf asdfsdf asas dhd ioasf
+      </p>
+
+      <!--Images-->
+
+      <img
+        src="https://cdn.pixabay.com/photo/2012/07/16/10/09/bridal-veil-fall-52449_960_720.jpg"
+        alt=""
+        class="responsive-img circle"
+      />
+    </div>
+
+    <div style="height:500px"></div>
+
+    <div class="modal fade" id="RequestModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4>New Request</h4>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- <form action="/"> -->
+            <div class="form-group">
+              <label for="email">Accept Request?</label>
             </div>
+            <div class="form-group">
+              <button type="submit" id="requestSubmit" class="btn btn-success">
+                Accept
+              </button>
+              <button type="submit" id="requestReject" class="btn btn-danger">
+                Submit
+              </button>
+              <div style="display: inline-block" id="request-validate"></div>
+            </div>
+          </div>
         </div>
-        <div class="modal fade" id="RequestModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-            <div class="modal-header">
-                <h4> New Request </h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>                                                                                       
-            </div> 
-            <div class="modal-body">                    
-                    <!-- <form action="/"> -->
-                        <div class="form-group">
-                          <label for="email">Accept Request?</label>                         
-                        </div>                        
-                        <div class="form-group">
-                            <button type="submit" id="requestSubmit" class="btn btn-success">Accept</button>
-                            <button type="submit" id="requestReject" class="btn btn-danger">Submit</button>
-                            <div style="display: inline-block" id="request-validate"></div>
-                        </div>
-                    </div> 
-                </div> 
-            </div>  
-                        <!-- </form -->
-            </div>   
+      </div>
+      <!-- </form -->
+    </div>
+  </body>
+  <script src="/js/libs/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> -->
+  <script type="text/javascript" src="js/dashboard.js"></script>
+  <script>
+    $(document).ready(function() {
+      $(".fixed-action-btn").floatingActionButton();
 
-
-    </body>
-    <script src="/js/libs/jquery-3.3.1.min.js"></script>    
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/dashboard.js"></script>
+      $(".button-collapse").click(function(e) {
+        alert("HEY");
+      });
+    });
+  </script>
 </html>
