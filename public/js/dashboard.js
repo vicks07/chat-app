@@ -1,9 +1,12 @@
 $(document).ready(function () {
+    let socket;
     $('.modal').modal(); 
-    console.log('Hello');
+    //console.log('Hello');
     let userDetails={
         userId:sessionStorage.getItem("userId")
     }
+    GetFriendList();
+
     $('#pendingrequest').click(function(e){
         GetPendingRequests();
     });
@@ -13,46 +16,7 @@ $(document).ready(function () {
         $('#RequestModal').modal('open');
     })
     $('#friendlist').click(function(e){
-        $("#contact_load").fadeIn(100, 'linear');
-
-        ajaxCall('GET',`/user/display/friends/${userDetails.userId}`,'').then(function(result){
-            console.log(result);
-
-
-            let ol = jQuery('<ul class="collection with-header"></ul>');
-
-            ol.append(jQuery('<li style="float: none" class="collection-header black-text"><h6><b>Contacts<b></h6></li>'))
-    
-            result.data.forEach(function(user){
-                let li = jQuery('<li style="float: none" class="collection-item black-text">').css({display:'flex', 'flex-direction':'row','justify-content':'space-between'});
-                //let div = jQuery('<div></div>')
-                jQuery('<span></span>').css({flex:'1',margin:'auto'}).html(user.name).appendTo(li);
-                let a = jQuery('<a href="#!" class="secondary-content"></a>');
-                //let i = jQuery('<a href="#!" class="secondary-content"></a>');
-                a.append('<i class="material-icons">send</i>').click(function(e){
-                    //alert('Hey');       
-                //     var header = $('#requestHeader').html(user.name); 
-                //     //$('#RequestModal').append(header);
-                //     $('#RequestModal').modal('open'); 
-                  //  $('#RequestModal').attr({'data-userId':user._id,'date-userName':user.name});
-                      
-
-                //console.log("Here",user._id,user.name,user._id+sessionStorage.getItem("userId")); 
-                connect({id:user._id,name:user.name,room:`${user._id}+${sessionStorage.getItem("userId")}`})
-                });
-                li.attr({'data-userId':user._id,'data-userName':'Vikram'});
-                //div.append(a);
-                li.append(a);
-                //ol.append(jQuery('<li style="float: none" class="collection-item black-text">Item1</li>').text(user.name)); 
-                ol.append(li);
-
-            $("#contact_load").fadeOut(100, 'linear');
-            });            
-        
-            jQuery('#users-friends').html(ol);
-
-            //ol.find('li').bind('click',userClick.bind(null,'Yo'));
-        });
+       GetFriendList();
     });
 
     $('#requestSubmit').click(function(e){
@@ -138,6 +102,50 @@ $(document).ready(function () {
         }
     };
 
+    function GetFriendList(){
+        $("#contact_load").fadeIn(100, 'linear');
+        
+        ajaxCall('GET',`/user/display/friends/${userDetails.userId}`,'').then(function(result){
+            console.log(result);
+
+
+            let ol = jQuery('<ul class="collection with-header"></ul>');
+
+            ol.append(jQuery('<li style="float: none" class="collection-header black-text"><h6><b>Contacts<b></h6></li>'))
+    
+            result.data.forEach(function(user){
+                let li = jQuery('<li style="float: none" class="collection-item black-text">').css({display:'flex', 'flex-direction':'row','justify-content':'space-between'});
+                //let div = jQuery('<div></div>')
+                jQuery('<span></span>').css({flex:'1',margin:'auto'}).html(user.name).appendTo(li);
+                let a = jQuery('<a href="#!" class="secondary-content"></a>');
+                //let i = jQuery('<a href="#!" class="secondary-content"></a>');
+                a.append('<i class="material-icons">send</i>').click(function(e){
+                    //alert('Hey');       
+                //     var header = $('#requestHeader').html(user.name); 
+                //     //$('#RequestModal').append(header);
+                //     $('#RequestModal').modal('open'); 
+                  //  $('#RequestModal').attr({'data-userId':user._id,'date-userName':user.name});
+                  socket = io();
+                console.log(user);
+                  $('#messages').empty();
+                //console.log("Here",user._id,user.name,user._id+sessionStorage.getItem("userId")); 
+                connect({id:user._id,name:user.name,room:`${user._id}+${sessionStorage.getItem("userId")}`})
+                });
+                li.attr({'data-userId':user._id,'data-userName':'Vikram'});
+                //div.append(a);
+                li.append(a);
+                //ol.append(jQuery('<li style="float: none" class="collection-item black-text">Item1</li>').text(user.name)); 
+                ol.append(li);
+
+            $("#contact_load").fadeOut(100, 'linear');
+            });            
+        
+            jQuery('#users-friends').html(ol);
+
+            //ol.find('li').bind('click',userClick.bind(null,'Yo'));
+        });
+    }
+
     function ajaxCall(method,url,data){
         //console.log(url);
         return  jQuery.ajax({
@@ -152,7 +160,7 @@ $(document).ready(function () {
 
     //import moment = require("moment");
 
-let socket = io();
+
 
 function scrollToBottom(){
    //Selectors
@@ -173,8 +181,8 @@ function scrollToBottom(){
 }
 
 function connect(user){
-    //console.log('user',user);
-    socket.on('connect',function(){
+    console.log('user',user);
+    //socket.on('connect',function(){
         //let params = jQuery.deparam(window.location.search);
         socket.emit('join',user,function(err){
             console.log(user);
@@ -186,8 +194,7 @@ function connect(user){
             }
         });
         console.log('Connected to the server');       
-        });
-}
+    };
 
 socket.on('disconnect',function(){
    console.log('Disconnected from server');
@@ -245,11 +252,15 @@ socket.on('newMessage',function(message){
 let messageTextBox = jQuery('[name=message]');
 
 jQuery('#message-form').on('submit',function(e){
+    alert('HEY');
    e.preventDefault(); //Prevents the default event of form of page refresh the page and modifying the url.
-   //console.log('Hello');
+   console.log('Hello');
+   let messageBox = $("#messagebox");
+   console.log('messageBox',messageBox);
    socket.emit('createMessage',{
        //from:getUrlParam(window.location.href,'name'),
-       text: messageTextBox.val()
+       //text: messageTextBox.val()
+       text: messageBox.val()
    },function(){
        messageTextBox.val('');
        //console.log(data);
